@@ -3,6 +3,14 @@
 
 #include "gmp.h"
 
+/**
+ * factorize - function that factorizes a number
+ *
+ * @lines: array containing a list of numbers
+ *
+ * Return: return nothing
+*/
+
 void factorize(char **lines)
 {
 	int i;

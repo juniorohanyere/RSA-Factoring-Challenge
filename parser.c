@@ -8,6 +8,7 @@
  * parse - parses a buffer into lines if the buffer contains new lines
  *
  * @buffer: the buffer to be parsed
+ * @delimiter: the delimiter
  *
  * Return: return an array of the parsed buffer in form of lines
 */
@@ -24,11 +25,12 @@ char **parse(char *buffer, char *delimiter)
 		printf("Unable to allocate memory\n");
 		exit(EXIT_FAILURE);
 	}
-
 	token = strtok(buffer, delimiter);
 	if (token == NULL)
+	{
+		free(token);
 		return (NULL);
-
+	}
 	for (i = 0; token != NULL; i++)
 	{
 		tokens[i] = token;
@@ -41,6 +43,7 @@ char **parse(char *buffer, char *delimiter)
 			if (!tokens)
 			{
 				printf("Unable to allocate memory\n");
+				free(token);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -48,7 +51,6 @@ char **parse(char *buffer, char *delimiter)
 	}
 	/* null termination */
 	tokens[i] = NULL;
-
 	free(token);
 
 	return (tokens);
