@@ -21,7 +21,7 @@ char *read_file(const char *filename)
 	int file, rfile;
 	char *buffer;
 
-	buffer = malloc(sizeof(char) * BUFFER_SIZE);
+	buffer = calloc(sizeof(char), BUFFER_SIZE);
 	if (buffer == NULL)
 	{
 		dprintf(STDERR_FILENO, "Unable to allocate memory\n");
