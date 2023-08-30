@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <gmp.h>
 
 #include "read_file.h"
@@ -51,11 +52,17 @@ void factorize(char **lines)
  * Return: always return 0
 */
 
-int main(int __attribute__((unused))argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	const char *filename = argv[1];
 	char *buffer;
 	char **lines;
+
+	if (argc != 2)
+	{
+		dprintf(STDERR_FILENO, "Usage: %s <filename>\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
 
 	buffer = read_file(filename);
 	lines = parse(buffer, "\n");
