@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "read_file.h"
 
@@ -16,27 +17,26 @@
 char **parse(char *buffer, char *delimiter)
 {
 	int i, buffer_size = BUFFER_SIZE;
-	char *token;
-	char **tokens;
+	char *token = NULL;
+	char **tokens = NULL;
 
 	tokens = malloc(sizeof(char *) * buffer_size);
-	if (!tokens)
+	if (tokens == NULL)
 	{
-		printf("Unable to allocate memory\n");
+		dprintf(STDERR_FILENO, "Unable to allocate memory\n");
 		exit(EXIT_FAILURE);
 	}
 	token = strtok(buffer, delimiter);
 	if (token == NULL)
 	{
 		free(token);
+		free(tokens);
 		return (NULL);
 	}
 	for (i = 0; token != NULL; i++)
 	{
-		tokens[i] = token;
 		if (i >= buffer_size)
 		{
-			/* realloc */
 			buffer_size += BUFFER_SIZE;
 			tokens = realloc(tokens,
 				buffer_size  * sizeof(char *));
@@ -44,10 +44,12 @@ char **parse(char *buffer, char *delimiter)
 			{
 				printf("Unable to allocate memory\n");
 				free(token);
+				free(tokens);
 				exit(EXIT_FAILURE);
 			}
 		}
-		token = strtok(NULL, delimiter);
+		tokens[i] = token;
+		token = strtok(NULL, "\n");
 	}
 	/* null termination */
 	tokens[i] = NULL;

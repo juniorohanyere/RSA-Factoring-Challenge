@@ -46,6 +46,16 @@ void prime(char **lines)
 	mpz_clear(num);
 }
 
+/**
+ * is_prime - function that checks if a given number is prime or not
+ *
+ * @num: the original number
+ * @factor: factor of @num
+ *
+ * Return: return 0 if prime
+ *	   return 1 otherwise
+*/
+
 int is_prime(mpz_t num, mpz_t factor)
 {
 	int i;
@@ -83,14 +93,23 @@ int is_prime(mpz_t num, mpz_t factor)
 	return (0);
 }
 
-int main(int __attribute__((unused))argc, char *argv[])
+/**
+ * main - entry point
+ *
+ * @argc: the argument counter
+ * @argv: array containing command line arguments
+ *
+ * Return: always return 0
+*/
+
+int main(int argc, char *argv[])
 {
 	const char *filename = argv[1];
 	char *buffer;
 	char **lines;
 
 	if (argc != 2)
-        {
+	{
 		dprintf(STDERR_FILENO, "Usage: %s <filename>\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}

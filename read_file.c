@@ -24,14 +24,14 @@ char *read_file(const char *filename)
 	buffer = malloc(sizeof(char) * BUFFER_SIZE);
 	if (buffer == NULL)
 	{
-		printf("Unable to allocate memory\n");
+		dprintf(STDERR_FILENO, "Unable to allocate memory\n");
 		exit(EXIT_FAILURE);
 	}
 
 	file = open(filename, O_RDONLY);
 	if (file == -1)
 	{
-		printf("Unable to open file: %s\n", filename);
+		dprintf(STDERR_FILENO, "Unable to open file: %s\n", filename);
 		free(buffer);
 		exit(EXIT_FAILURE);
 	}
@@ -39,7 +39,8 @@ char *read_file(const char *filename)
 	rfile = read(file, buffer, BUFFER_SIZE);
 	if (rfile == -1)
 	{
-		printf("Unable to read from file: %s\n", filename);
+		dprintf(STDERR_FILENO, "Unable to read from file: %s\n",
+			filename);
 		free(buffer);
 		exit(EXIT_FAILURE);
 	}
