@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "main.h"
+#include "read_file.h"
 
 /**
  * read_file - function to read content of a file

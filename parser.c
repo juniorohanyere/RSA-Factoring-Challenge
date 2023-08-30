@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "main.h"
+#include "read_file.h"
 
 /**
  * parse - parses a buffer into lines if the buffer contains new lines
