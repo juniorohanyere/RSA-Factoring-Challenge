@@ -88,33 +88,6 @@ int factors(int argc, char *argv[])
 
 int main(int argc, char *argv[])
 {
-	struct rusage before, after;
-	struct timeval user_duration;
-	struct timeval sys_duration;
-
-	getrusage(RUSAGE_SELF, &before);
-
 	factors(argc, argv);
-
-	getrusage(RUSAGE_SELF, &after);
-
-	timersub(&after.ru_utime, &before.ru_utime, &user_duration);
-
-	timersub(&after.ru_stime, &before.ru_stime, &sys_duration);
-
-	printf("\n");
-
-	printf("real %ldm%.3fs\n", (long)(after.ru_utime.tv_sec / 60),
-		(double)(after.ru_utime.tv_sec % 60) +
-		(double)after.ru_utime.tv_usec / 1000000);
-
-	printf("user %ldm%.3fs\n", (long)(user_duration.tv_sec / 60),
-		(double)(user_duration.tv_sec % 60) +
-		(double)user_duration.tv_usec / 1000000);
-
-	printf("sys  %ldm%.3fs\n", (long)(sys_duration.tv_sec / 60),
-		(double)(sys_duration.tv_sec % 60) +
-		(double)sys_duration.tv_usec / 1000000);
-
 	return (0);
 }
